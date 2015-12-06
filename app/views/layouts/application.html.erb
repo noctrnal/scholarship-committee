@@ -1,14 +1,63 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Scholarship</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <title>Scholarship</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div class="wrapper-for-content-outside-of-footer">
+      <header class="centered-navigation" role="banner">
+        <div class="centered-navigation-wrapper">
+          <a href="javascript:void(0)" class="mobile-logo">
+            <img src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/placeholder_logo_3_dark.png" alt="Logo image">
+          </a>
+          <a href="javascript:void(0)" id="js-centered-navigation-mobile-menu" class="centered-navigation-mobile-menu">MENU</a>
+          <nav role="navigation">
+            <ul id="js-centered-navigation-menu" class="centered-navigation-menu show">
+              <li class="nav-link"><a href="<%= url_for :evaluations %>">Evaluations</a></li>
+              <li class="nav-link logo">
+                <a href="<%= url_for :root %>" class="logo">
+                  <img src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/placeholder_logo_3_dark.png" alt="Logo image">
+                </a>
+              </li>
+              <li class="nav-link"><a href="<%= url_for :new_user_session %>">Sign in</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+      <%= yield %>
+    </div>
+    <footer class="footer-2" role="contentinfo">
+      <div class="footer-logo">
+        <img src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/placeholder_logo_1.png" alt="Logo image">
+      </div>
+      <ul>
+        <li><a href="<%= url_for :evaluations %>">Evaluations</a></li>
+        <li><a href="<%= url_for :new_user_session %>">Sign in</a></li>
+      </ul>
 
-<%= yield %>
+      <div class="footer-secondary-links">
+        <ul>
+          <li><a href="/terms">Terms and Conditions</a></li>
+          <li><a href="/privacy">Privacy Policy</a></li>
+        </ul>
 
-</body>
+        <ul class="footer-social">
+          <li><a href="javascript:void(0)">
+              <img src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/facebook-logo-circle.png" alt="Facebook">
+            </a></li>
+            <li><a href="javascript:void(0)">
+                <img src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/twitter-logo-circle.png" alt="Twitter">
+              </a></li>
+              <li><a href="javascript:void(0)">
+                  <img src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/youtube-logo-circle.png" alt="YouTube">
+                </a></li>
+        </ul>
+      </div>
+    </footer>
+  </body>
 </html>

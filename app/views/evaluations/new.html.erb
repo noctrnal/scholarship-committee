@@ -1,0 +1,114 @@
+<h1>New Scholarship Candidate Evaluation</h1>
+
+<div class="scoring-container">
+  <div class="scoring">
+    <strong>Commitment to children</strong>
+    <p>Things to consider:
+    <ul>
+      <li>Experience/job or volunteer work</li>
+      <li>Essay</li>
+      <li>Recommendation letters</li>
+      <li>Plans for future employment</li>
+      <li>Are they "professional students"</li>
+    </ul>
+  </div>
+
+  <div class="scoring">
+    <strong>Scholarship records</strong>
+    <p>Take into consideration undergraduate and graduate GPA, course load, and your own common sense. Then use the following as your guidelines for scoring:
+    <ul>
+      <li>5 point = 4.00 to 3.98 GPA</li>
+      <li>4 point = 3.97 to 3.50</li>
+      <li>3 point = 3.49 to 3.00</li>
+      <li>2 point = 2.99 to 2.50</li>
+      <li>1 point = 2.49 and below</li>
+    </ul>
+  </div>
+
+  <div class="scoring">
+    <strong>Recommendations</strong>
+    <p>Things to consider:
+    <ul>
+      <li>How long has he/she known the applicant?</li>
+      <li>In what capacity has he/she known the application?</li>
+      <li>Are the letters personalized?</li>
+    </ul>
+  </div>
+
+  <div class="scoring">
+    <strong>Motivation/goals</strong>
+    <ul>
+      <li>Are they motivated by commitment or money?</li>
+      <li>Are they enthusiastic about the field they have chosen?</li>
+      <li>Does their work experience and volunteerism reflect their desire to work with children?</li>
+      <li>How honest and sincere is the applicant?</li>
+    </ul>
+  </div>
+</div>
+
+<table>
+  <tr>
+    <th>Candidate</th>
+    <th>Committment to children</th>
+    <th>Scholarship record</th>
+    <th>Recommendations</th>
+    <th>Motivations/goals</th>
+    <th>Remarks</th>
+  </tr>
+  <%= form_tag evaluations_path do %>
+    <%= @evaluations.each do |evaluation| %>
+      <%= fields_for 'evaluations[]', evaluation do |e| %>
+        <tr>
+          <td>
+            <%= e.hidden_field(
+              :candidate_id,
+              :value => evaluation.candidate.id
+            ) %>
+            <%= e.hidden_field(
+              :user_id,
+              :value => evaluation.user.id
+            ) %>
+            <%= e.text_field(
+              :candidate_name,
+              :readonly => true,
+              :value => evaluation.candidate.name
+            ) %>
+          </td>
+          <td>
+            <%= e.select(
+              :commitment,
+              options_for_select(@options),
+            ) %>
+          </td>
+          <td>
+            <%= e.select(
+              :scholarship,
+              options_for_select(@options),
+            ) %>
+          </td>
+          <td>
+            <%= e.select(
+              :recommendations,
+              options_for_select(@options),
+            ) %>
+          </td>
+          <td>
+            <%= e.select(
+              :goals,
+              options_for_select(@options),
+            ) %>
+          </td>
+          <td>
+            <%= e.text_area :remarks %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  <tr>
+    <td colspan='6'>
+      <%= submit_tag 'Submit' %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+

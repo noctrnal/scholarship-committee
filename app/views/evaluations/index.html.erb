@@ -1,0 +1,54 @@
+<h1>Evaluations overview</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Commitment to children</th>
+    <th>Scholarship record</th>
+    <th>Recommendations</th>
+    <th>Motivation/goals</th>
+    <th>Total</th>
+  </tr>
+
+  <% @candidates.each do |candidate| %>
+    <tr>
+      <td><%= candidate.name %></td>
+      <td><%= candidate.commitment_total %></td>
+      <td><%= candidate.scholarship_total %></td>
+      <td><%= candidate.recommendations_total %></td>
+      <td><%= candidate.goals_total %></td>
+      <td><%= candidate.total %></td>
+    </tr>
+  <% end %>
+</table>
+
+<h1>Evaluations listing</h1>
+
+<p><a href="<%= url_for :new_evaluation %>" data-no-turbolink="true">Submit new evaluation</a></p>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Commitment to children</th>
+    <th>Scholarship record</th>
+    <th>Recommendations</th>
+    <th>Motivation/goals</th>
+    <th>Total</th>
+    <th>Remarks</th>
+    <th>Submitter</th>
+  </tr>
+
+  <% @evaluations.each do |evaluation| %>
+    <tr>
+      <td><%= evaluation.candidate.name %></td>
+      <td><%= evaluation.commitment %></td>
+      <td><%= evaluation.scholarship %></td>
+      <td><%= evaluation.recommendations %></td>
+      <td><%= evaluation.goals %></td>
+      <td><%= evaluation.total %></td>
+      <td><%= evaluation.remarks %></td>
+      <td><%= evaluation.user.email %></td>
+    </tr>
+  <% end %>
+</table>
+
