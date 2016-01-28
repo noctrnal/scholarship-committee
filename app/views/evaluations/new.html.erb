@@ -79,58 +79,52 @@
     <th>Motivations/goals</th>
     <th>Remarks</th>
   </tr>
-  <%= form_tag evaluations_path do %>
-    <%= @evaluations.each do |evaluation| %>
-      <%= fields_for 'evaluations[]', evaluation do |e| %>
-        <tr>
-          <td>
-            <%= e.hidden_field(
-              :candidate_id,
-              :value => evaluation.candidate.id
-            ) %>
-            <%= e.hidden_field(
-              :user_id,
-              :value => evaluation.user.id
-            ) %>
-            <%= e.text_field(
-              :candidate_name,
-              :readonly => true,
-              :value => evaluation.candidate.name
-            ) %>
-          </td>
-          <td>
-            <%= e.select(
-              :commitment,
-              options_for_select(@options),
-            ) %>
-          </td>
-          <td>
-            <%= e.select(
-              :scholarship,
-              options_for_select(@options),
-            ) %>
-          </td>
-          <td>
-            <%= e.select(
-              :recommendations,
-              options_for_select(@options),
-            ) %>
-          </td>
-          <td>
-            <%= e.select(
-              :goals,
-              options_for_select(@options),
-            ) %>
-          </td>
-          <td>
-            <%= e.text_area :remarks %>
-          </td>
-        </tr>
-      <% end %>
-    <% end %>
+  <%= form_for @evaluation do |e| %>
+    <tr>
+      <td>
+        <%= e.collection_select(
+          :candidate_id,
+          Candidate.all,
+          :id,
+          :name,
+          prompt: 'Select a candidate'
+        ) %>
+      </td>
+      <td>
+        <%= e.select(
+          :commitment,
+          options_for_select(@options),
+          prompt: 'Select a score'
+        ) %>
+      </td>
+      <td>
+        <%= e.select(
+          :scholarship,
+          options_for_select(@options),
+          prompt: 'Select a score'
+        ) %>
+      </td>
+      <td>
+        <%= e.select(
+          :recommendations,
+          options_for_select(@options),
+          prompt: 'Select a score'
+        ) %>
+      </td>
+      <td>
+        <%= e.select(
+          :goals,
+          options_for_select(@options),
+          prompt: 'Select a score'
+        ) %>
+      </td>
+      <td>
+        <%= e.text_area :remarks %>
+      </td>
+    </tr>
   <tr>
     <td colspan='6'>
-      <%= submit_tag 'Submit' %>
+      <%= e.submit 'Submit' %>
     </td>
   </tr>
   <% end %>

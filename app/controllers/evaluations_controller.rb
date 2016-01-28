@@ -2,28 +2,29 @@ class EvaluationsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    params['evaluations'].each do |evaluation|
-      Evaluation.create(evaluation_params(evaluation))
+    @evaluation = Evaluation.where(
+      'candidate_id' => params[:evaluation][:candidate_id],
+      'user_id' => current_user.id
+    )
+
+    if !@evaluation
+      @evaluation = Evaluation.new(evaluation_params)
+      @evaluation.user = current_user
+      @evaluation.save
+      redirect_to evaluations_path
     end
 
-    redirect_to evaluations_url
+    redirect_to evaluations_path
   end
 
   def index
     @candidates = Candidate.all
-    @evaluations = Evaluation.order(:candidate_id)
+    @evaluations = Evaluation.order(:candidate_id).where(:user => current_user)
   end
 
   def new
-    @evaluations = []
+    @evaluation = Evaluation.new
     @options = [1, 2, 3, 4, 5]
-
-    Candidate.all.each do |candidate|
-      @evaluations << Evaluation.new(
-        :candidate => candidate,
-        :user => current_user
-      )
-    end
   end
 
   def show
@@ -31,15 +32,14 @@ class EvaluationsController < ApplicationController
   end
 
   private
-    def evaluation_params(evaluation)
-      evaluation.permit(
+    def evaluation_params
+      params.require(:evaluation).permit(
         :candidate_id,
         :commitment,
         :scholarship,
         :recommendations,
         :goals,
         :remarks,
-        :user_id
       )
     end
 end

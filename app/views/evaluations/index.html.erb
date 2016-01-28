@@ -1,4 +1,4 @@
-<h1>Evaluations Overview</h1>
+<p><h1>Evaluations Overview</h1></p>
 
 <table>
   <tr>
@@ -22,7 +22,7 @@
   <% end %>
 </table>
 
-<h1>Evaluations Listing</h1>
+<p><h1>Your Evaluations</h1></p>
 
 <p><a href="<%= url_for :new_evaluation %>" data-no-turbolink="true">Submit new evaluation</a></p>
 
@@ -35,7 +35,6 @@
     <th>Motivation/goals</th>
     <th>Total</th>
     <th>Remarks</th>
-    <th>Submitter</th>
   </tr>
 
   <% @evaluations.each do |evaluation| %>
@@ -47,7 +46,6 @@
       <td><%= evaluation.goals %></td>
       <td><%= evaluation.total %></td>
       <td><%= evaluation.remarks %></td>
-      <td><%= evaluation.user.email %></td>
     </tr>
   <% end %>
 </table>
